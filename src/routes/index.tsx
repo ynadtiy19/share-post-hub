@@ -1,24 +1,29 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { LocaleProvider } from "@/i18n/LocaleProvider";
+import { LandingPage } from "@/components/landing/LandingPage";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const title = "青橙 Qorange · 创作与相遇的安静角落";
+const description =
+  "青橙 Qorange 是一款在线内容创作与社交互动 App：写下、拍下、画下你在意的瞬间，遇见同样在意的人。iOS 与 Android 均可使用。";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+       { property: "og:type", content: "website" },
+       { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <LocaleProvider>
+      <LandingPage />
+    </LocaleProvider>
   );
 }

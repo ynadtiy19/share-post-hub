@@ -61,41 +61,55 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@theme inline {
+  --font-display: "Cormorant Garamond", "Songti SC", serif;
+  --font-sans: "Karla", "PingFang SC", "Hiragino Sans", sans-serif;
+  --color-sage: var(--sage);
+  --color-sage-deep: var(--sage-deep);
+  --color-cream: var(--cream);
+  --color-clay: var(--clay);
+}
+
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --radius: 0.25rem;
+  --background: oklch(0.964 0.011 85.8);
+  --foreground: oklch(0.29 0.018 140);
+  --card: oklch(0.981 0.007 85.8);
+  --card-foreground: oklch(0.29 0.018 140);
+  --popover: oklch(0.981 0.007 85.8);
+  --popover-foreground: oklch(0.29 0.018 140);
+  --primary: oklch(0.585 0.043 143.5);
+  --primary-foreground: oklch(0.975 0.01 85.8);
+  --secondary: oklch(0.912 0.021 133);
+  --secondary-foreground: oklch(0.33 0.026 143);
+  --muted: oklch(0.936 0.014 92);
+  --muted-foreground: oklch(0.52 0.017 130);
+  --accent: oklch(0.912 0.021 133);
+  --accent-foreground: oklch(0.33 0.026 143);
+  --destructive: oklch(0.55 0.17 25);
+  --destructive-foreground: oklch(0.98 0.005 85);
+  --border: oklch(0.885 0.016 92);
+  --input: oklch(0.885 0.016 92);
+  --ring: oklch(0.72 0.032 140);
+  --sage: oklch(0.79 0.035 137);
+  --sage-deep: oklch(0.5 0.04 145);
+  --cream: oklch(0.955 0.014 88);
+  --clay: oklch(0.72 0.045 70);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --sidebar: oklch(0.955 0.014 88);
+  --sidebar-foreground: oklch(0.29 0.018 140);
+  --sidebar-primary: oklch(0.585 0.043 143.5);
+  --sidebar-primary-foreground: oklch(0.975 0.01 85.8);
+  --sidebar-accent: oklch(0.912 0.021 133);
+  --sidebar-accent-foreground: oklch(0.33 0.026 143);
+  --sidebar-border: oklch(0.885 0.016 92);
+  --sidebar-ring: oklch(0.72 0.032 140);
 }
+
 
 .dark {
   --background: oklch(0.129 0.042 264.695);
@@ -140,5 +154,39 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
   }
 }
+
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
+  }
+}
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  &[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
